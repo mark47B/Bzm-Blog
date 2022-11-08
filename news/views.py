@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+from .models import News
 
 def index(request: HttpRequest):
-    return HttpResponse('There is HTTP respnse')
+    news = News.objects.all()
+    return render(request,  'news/index.html', {'news': news, 'title': 'Список новостей'})
