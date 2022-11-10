@@ -9,12 +9,12 @@
       integrity="sha384-+4j30LffJ4tgIMrq9CwHvn0NjEvmuDCOfk6Rpg2xg7zgOxWWtLtozDEEVvBPgHqE"
       crossorigin="anonymous"
     />
-    <title>TITLE</title>
+    <title>{{category.title}} </title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{%url 'home'%}">Navbar</a>
+        <a class="navbar-brand" href="#">Navbar</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{%url 'home'%}">Main</a>
+              <a class="nav-link active" aria-current="page" href="/">Main</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -71,10 +71,10 @@
     <div class="container mt-3">
       <h1>{{title}}</h1>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="list-group">
-            {% for j in category %}
-            <a href="{% url 'category' j.pk %}" class="list-group-item list-group-item-action">
+            {% for j in categories %}
+            <a href="/category/{{j.pk}}" class="list-group-item list-group-item-action">
               {{j.title}}
               <span class="badge bg-primary rounded-pill">3</span>
           </a>
@@ -82,10 +82,10 @@
             {% endfor %}
         </div>
         </div>
-        <div class="col-md-9">
-          {%for i in news%}
+        <div class="col-md-8">
+          {%for i in news_cat %}
           <div class="card mb-3">
-            <div class="card-header">Категория: {{i.category}}</div>
+            <div class="card-header">Категория: {{category.title}}</div>
             <div class="card-body">
               <div class="media"></div>
               <div class="media-body">
