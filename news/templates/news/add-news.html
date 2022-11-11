@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  {{title}} :: {{block.super}}
+{% endblock title %}
+
+{% block sidebar %}
+  {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %} 
+
+{% block content %}
+    <form action="{% url 'add_news' %}" method='POST'>
+            {% csrf_token %}
+            {{form.as_p}}
+    {% comment "Standart form" %}
+    {{ form.none_field.errors}}
+    <div class="mb-3">
+        <label for="{{form.title.id_for_label}}" class="form-label">Title</label>
+        {{form.title}}
+        <div class='invalid-feedback'>
+            {{form.title.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{form.content.id_for_label}}" class="form-label">Content</label>
+        {{form.content}}
+        <div class='invalid-feedback'>
+            {{form.content.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{form.is_published.id_for_label}}" class="form-label">Publication</label>
+        {{form.is_published}}
+        <div class='invalid-feedback'>
+            {{form.is_published.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{form.category.id_for_label}}" class="form-label">Category</label>
+        {{form.category}}
+        <div class='invalid-feedback'>
+            {{form.category.errors}}
+        </div>
+    </div>
+    {% endcomment %}
+
+    {% comment "Standart form" %}
+    {%for field in form %}
+        <div class='mb-3'>
+            {{field.label_tag}}
+            {{field}}
+            <div class='invalid-feedback'>
+                {{field.category.errors}}
+            </div>
+        </div>
+    {%endfor%}
+    {% endcomment %}
+        <button type='submit' class='btn btn-primary btn-block'> Add new </button>
+    </form>
+{% endblock content %}
