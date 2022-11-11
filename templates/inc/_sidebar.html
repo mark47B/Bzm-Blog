@@ -1,0 +1,20 @@
+{% load news_tags %}
+{% comment "cats" %}
+<div class="list-group">
+    {%get_list_categories as category%}
+    {% for j in category %}
+    <a
+      href="{% url 'category' j.pk %}"
+      class="list-group-item list-group-item-action"
+    >
+      {{j.title}} <span class="badge bg-primary rounded-pill">3</span>
+    </a>
+    {% endfor %}
+</div>
+</br>
+{% endcomment %}
+
+{% show_categories %}
+
+
+

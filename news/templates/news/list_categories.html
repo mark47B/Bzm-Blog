@@ -1,0 +1,11 @@
+<div class="list-group">
+    {% for j in categories %}
+    <a
+      {% comment %} href="{% url 'category' j.pk %}" {% endcomment %}
+      href="{{j.get_absolute_url}}"
+      class="list-group-item list-group-item-action"
+    >
+      {{j.title}} <span class="badge bg-primary rounded-pill">3</span>
+    </a>
+    {% endfor %}
+</div>
