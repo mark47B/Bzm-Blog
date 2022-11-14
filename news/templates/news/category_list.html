@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  {{title}} :: {{block.super}}
+{% endblock title %}
+
+{% block sidebar %}
+  {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %} 
+
+{% block content %}
+{% for i in news_cat %}
+<div class="card mb-3">
+  <div class="card-header">Категория: {{i.category}}</div>
+  <div class="card-body">
+    <div class="media">
+      <div class="media-body">
+        {% if i.photo %}
+        <img width="500" height="300" src="{{i.photo.url}}" alt="" />
+        {%else%}
+        <img src="https://picsum.photos/seed/picsum/200/300" />
+        {% endif %}
+      </div>
+      <h5 class="card-title {% cycle 'text-danger' 'text-success' %}">
+        {{i.title}}
+      </h5>
+      <p class="card-text">{{i.content}}</p>
+      <a href="#" class="btn btn-primary">Read more...</a>
+    </div>
+  </div>
+  <div class="card-footer text-muted">{{i.created_at |timesince}}</div>
+</div>
+{% endfor %}
+{% endblock content %}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+      integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
