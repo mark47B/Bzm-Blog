@@ -1,7 +1,7 @@
 from django import forms
 from .models import Category, News
-
-
+import re
+from django.core.exceptions import ValidationError
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
@@ -13,3 +13,8 @@ class NewsForm(forms.ModelForm):
             'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'category' : forms.Select(attrs={'class':'form-control' })
         }
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if re.match('\d', title):
+            raise ValidationError('Title starts with number :(')
+        return title
