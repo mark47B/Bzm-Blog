@@ -14,6 +14,7 @@ class HomeNews(ListView):
     model = News
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
+    
     # extra_context = {'title': 'Main page'} # Только для статических данных
 
     def get_context_data(self, *, object_list=None, **kwargs) -> dict[str, any]:
@@ -22,7 +23,7 @@ class HomeNews(ListView):
         return context
     
     def get_queryset(self):
-        return News.objects.filter(is_published = True)
+        return News.objects.filter(is_published = True).select_related('category')
 
 # def index(request: HttpRequest):
 #     news = News.objects.all()
@@ -39,10 +40,10 @@ class NewsByCategory(ListView):
     def get_context_data(self, *, object_list=None, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
-        context['category'] = Category.objects.get(pk=self.kwargs['category_id'])
+        context['category'] = context['title']
         return context
     def get_queryset(self):
-        return News.objects.filter(is_published = True, category_id=self.kwargs['category_id'])
+        return News.objects.filter(is_published = True, category_id=self.kwargs['category_id']).select_related('category')
 # def get_category(request: HttpRequest, category_id: int):
 #     news_cat = News.objects.filter(category_id=category_id)
 #     category = Category.objects.get(pk=category_id)

@@ -5,7 +5,10 @@
       href="{{j.get_absolute_url}}"
       class="list-group-item list-group-item-action"
     >
-      {{j.title}} <span class="badge bg-primary rounded-pill">3</span>
+    {% comment "Вычисления на странице" %}
+    {{j.title}} <span class="badge bg-primary rounded-pill">{{j.news_set.count}}</span>
+    {% endcomment %}
+      {{j.title}} <span class="badge bg-primary rounded-pill">{{j.cnt}}</span>
     </a>
     {% endfor %}
 </div>
