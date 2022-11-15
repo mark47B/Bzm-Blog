@@ -2,7 +2,8 @@ from typing import List
 from unicodedata import category
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpRequest
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 from .models import News, Category
 from .forms import NewsForm
@@ -50,24 +51,33 @@ class NewsByCategory(ListView):
 #     'title': category.title}
 #     return render(request, template_name='news/category.html', context=context)
 
-def view_news(request: HttpRequest, news_id: int):
-    news_item = get_object_or_404(News, pk=news_id)
-    context = {
-        'title': news_item.title,
-        'news_item': news_item
-        }
-    return render(request, template_name='news/view_news.html', context=context)
+class view_news(DetailView):
+    model = News
+    # pk_url_kwarg = 'news_id'
+    
 
+# def view_news(request: HttpRequest, news_id: int):
+#     news_item = get_object_or_404(News, pk=news_id)
+#     context = {
+#         'title': news_item.title,
+#         'news_item': news_item
+#         }
+#     return render(request, template_name='news/view_news.html', context=context)
 
-def add_news(request: HttpRequest):
-    if request.method == 'POST':
-        form = NewsForm(request.POST)
-        if form.is_valid():
-            # news = News.objects.create(**form.cleaned_data) # Если форма не связана с моделью
-            news = form.save()
-            return redirect(news)
-    else:
-        form = NewsForm()
-    context = {'title': 'Добавление новости',
-    'form': form}
-    return render(request, template_name='news/add-news.html', context=context)
+class CreateNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add-news.html'
+    success_url =  reverse_lazy('home')
+
+# def add_news(request: HttpRequest):
+#     if request.method == 'POST':
+#         form = NewsForm(request.POST)
+#         if form.is_valid():
+#             # news = News.objects.create(**form.cleaned_data) # Если форма не связана с моделью
+#             news = form.save()
+#             return redirect(news)
+#     else:
+#         form = NewsForm()
+#     context = {'title': 'Добавление новости',
+#     'form': form}
+#     return render(request, template_name='news/add-news.html', context=context)

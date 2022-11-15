@@ -13,7 +13,7 @@ class News(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)   
 
     def get_absolute_url(self):
-        return reverse("view_news", kwargs={"news_id": self.pk})
+        return reverse("view_news", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f'({self.pk}) {self.title}'
