@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  {{title}} :: {{block.super}}
+{% endblock title %}
+
+{% block sidebar %}
+  {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %} 
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-header">Категория: <a href='{{ object.category.get_absolute_url }}'>{{object.category}}</a></div>
+  <div class="card-body">
+    <h4 class="card-title">{{object.title}}</h4>
+    <div class="media">
+      <div class="media-body">
+        {% if object.photo %}
+        <img width="500" height="300" src="{{object.photo.url}}" alt="" />
+        {%else%}
+        <img src="https://picsum.photos/seed/picsum/200/300" />
+        {% endif %}
+      </div>
+      <h5 class="card-title {% cycle 'text-danger' 'text-success' %}">
+        {{i.title}}
+      </h5>
+      <p class="card-text">{{object.content}}</p>
+      <a href="#" class="btn btn-primary">Read more...</a>
+    </div>
+  </div>
+  <div class="card-footer text-muted">{{object.created_at |timesince}}</div>
+</div>
+{% endblock content %}

@@ -1,14 +1,27 @@
 from django.contrib import admin
 from .models import News
 from .models import Category
+from django.utils.safestring import mark_safe
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'created_at', 'updated_at', 'is_published', 'category')
+    list_display = ('id', 'title', 'created_at', 'updated_at', 'is_published', 'category', 'get_photo')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')
     list_editable = ('is_published', 'category')
     list_filter = ('is_published', 'category')
+    save_on_top = True
+    fields = ('title', 'category', 'content', 'photo', 
+    'get_photo', 'is_published', 'views', 'created_at', 'updated_at')
+    readonly_fields = ('created_at', 'get_photo', 'views', 'updated_at')
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}", width="50">')
+        else:
+            return 'No photo'
+
+    get_photo.short_description = 'Миниатюра'
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
@@ -17,3 +30,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(News, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
+
+admin.site.site_title = 'BZM_Blog CRM'
+admin.site.site_header = 'BZM_Blog CRM'
