@@ -42,7 +42,7 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-def test(request):
+def feedback(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid(): 
@@ -57,7 +57,7 @@ def test(request):
             messages.error(request, 'Ошибка валидации')
     else:
         form = ContactForm()
-    return render(request, 'news/test.html', {'title' : 'Обратная связь', 'form':form})
+    return render(request, 'news/feedback.html', {'title' : 'Обратная связь', 'form':form})
 
 
 # CBV - class based views
