@@ -12,8 +12,8 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ('is_published', 'category')
     save_on_top = True
     fields = ('title', 'category', 'content', 'photo', 
-    'get_photo', 'is_published', 'views', 'created_at', 'updated_at')
-    readonly_fields = ('created_at', 'get_photo', 'views', 'updated_at')
+    'get_photo', 'is_published', 'created_at', 'updated_at')
+    readonly_fields = ('created_at', 'get_photo', 'updated_at')
     
     def get_photo(self, obj):
         if obj.photo:
