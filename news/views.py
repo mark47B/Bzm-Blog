@@ -1,3 +1,4 @@
+from email import message
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
@@ -5,8 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from .utils import MyMixin
 
 
@@ -41,11 +43,21 @@ def user_logout(request):
     return redirect('login')
 
 def test(request):
-    objects = ['john1', 'paul2', 'george3', 'ringo4', 'john2', 'paul_2', 'george2', 'ringo2',]
-    paginator = Paginator(objects, 2)
-    page_num = request.GET.get('page', 1)
-    page_objects = paginator.get_page(page_num)
-    return render(request, 'news/test.html', {'page_obj': page_objects, 'title': 'TEST'})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid(): 
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
+            'USERNAME@f0711509.xsph.ru', ['@gmail.com'], fail_silently=True)
+            if mail:
+                messages.success(request, 'Письмо отправлено')
+                return redirect('test')
+            else:
+                message.error(request, 'Ошибка отправки')
+        else:
+            messages.error(request, 'Ошибка валидации')
+    else:
+        form = ContactForm()
+    return render(request, 'news/test.html', {'title' : 'Обратная связь', 'form':form})
 
 
 # CBV - class based views

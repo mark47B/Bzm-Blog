@@ -9,8 +9,11 @@
 {% endblock sidebar %} 
 
 {% block content %}
-{% for i in page_obj.object_list  %}
-    <p> {{i}} </p>
-{% endfor %}
+<h1>Обратная связь</h1>
+<form method='post'>
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type='submit' class='btn btn-primary btn-block'> Send </button>
+</form>
 {% endblock content %}
 
