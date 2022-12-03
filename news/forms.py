@@ -58,5 +58,5 @@ class NewsForm(forms.ModelForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         if re.match('\d', title):
-            raise ValidationError('Title starts with number :(')
+            raise ValidationError('Заголовок не должен начинаться с цифры!')
         return title
