@@ -25,7 +25,7 @@ def register(request):
             messages.error(request, 'Ошибка регистрации')
     else:
         form = UserRegisterForm()
-    return render(request, 'news/register.html', {'form': form})
+    return render(request, 'news/register.html', {'form': form, 'title': 'Регистрация'})
 
 def user_login(request):
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def user_login(request):
             return redirect('home')
     else:
         form = UserLoginForm()
-    return render(request, 'news/login.html', {'form': form})
+    return render(request, 'news/login.html', {'form': form, 'title': 'Вход'})
 
 def user_logout(request):
     logout(request)
@@ -73,7 +73,7 @@ class HomeNews(MyMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
-        context['title'] = self.get_upper('Main page')
+        context['title'] = self.get_upper('Все статьи')
         context['mixin_prob'] = self.get_prob()
         return context
     
@@ -94,7 +94,7 @@ class NewsByCategory(MyMixin, ListView):
     allow_empty = False
     def get_context_data(self, *, object_list=None, **kwargs) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
-        context['title'] = self.get_upper(Category.objects.get(pk=self.kwargs['category_id']))
+        context['title'] = 'Категория "' + self.get_upper(Category.objects.get(pk=self.kwargs['category_id'])) + '"'
         context['category'] = context['title']
         return context
     def get_queryset(self):
@@ -125,6 +125,12 @@ class CreateNews(LoginRequiredMixin, CreateView):
     template_name = 'news/add-news.html'
     success_url =  reverse_lazy('home')
     login_url = '/admin/'
+
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Добавить статью'
+        return context
+
 
 # def add_news(request: HttpRequest):
 #     if request.method == 'POST':

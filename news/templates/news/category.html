@@ -21,11 +21,12 @@
         <img src="https://picsum.photos/seed/picsum/200/300" />
         {% endif %}
       </div>
-      <h5 class="card-title {% cycle 'text-danger' 'text-success' %}">
+      <br>
+      <h4 class="card-title {% cycle 'text-danger' 'text-success' %}">
         {{i.title}}
-      </h5>
+      </h4>
       <p class="card-text">{{i.content}}</p>
-      <a href="#" class="btn btn-primary">Read more...</a>
+      <a href="{{i.get_absolute_url}}" class="btn btn-primary">Read more...</a>
     </div>
   </div>
   <div class="card-footer text-muted">{{i.created_at |timesince}}</div>

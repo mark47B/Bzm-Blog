@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{%url 'home'%}">Bzm</a>
+      <a class="navbar-brand" href="{%url 'home'%}">Bzm blog</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -16,21 +16,25 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'add_news' %}">Add news</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'add_news' %}">Добавить статью</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'feedback' %}">Feedback</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'feedback' %}">Обратная связь</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link disabled">Добавить статью</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Обратная связь</a>
           </li>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
         </ul>
         <span class="navbar-text">
           {% if request.user.is_authenticated %}
-          Добро пожаловать, {{user.username}}  | <a href="{% url 'logout' %}">Logout</a>
+          Добро пожаловать, {{user.username}}  | <a href="{% url 'logout' %}">Выйти</a>
           {% else %}
-          <a href="{%url 'register' %}">Register</a> | <a href="{%url 'login' %}">Login</a> 
+          <a href="{%url 'register' %}">Регистрация</a> | <a href="{%url 'login' %}">Войти</a> 
           {% endif %}
         </span>
       </div>

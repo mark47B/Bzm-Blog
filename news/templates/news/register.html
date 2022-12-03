@@ -9,10 +9,9 @@
 {% endblock sidebar %} 
 
 {% block content %}
-    <h1>Регистрация</h1>
     <form action="{% url 'register' %}" method='POST'>
         {% csrf_token %}
         {{form.as_p}}
-        <button type='submit' class='btn btn-primary btn-block'> Add new </button> 
+        <button type='submit' class='btn btn-primary btn-block'> Зарегестрироваться </button> 
     </form>
 {% endblock content %}
