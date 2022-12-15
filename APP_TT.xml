@@ -21,6 +21,17 @@
      <SECTION> 
         <TITLE>Запуск </TITLE>
         <CONTENT>
+            <TEXT>
+                1. Установка виртуальной среды и зависимостей. 
+                2. Создание папки secrets в .venv
+                3. Поместить файл SECRET_KEY в .venv/secrets
+                4. Запуск приложения
+            </TEXT>
+            <CODE>python3.10 -m venv .venv</CODE>
+            <CODE>source .venv/bin/activate</CODE>
+            <CODE>pip install -r requirements.txt</CODE>
+            <CODE>mkdir .venv/secrets</CODE>
+            <CODE>touch .venv/secrets/SECRET_KEY</CODE>
             <CODE>python3.10 manage.py runserver</CODE>
         </CONTENT>
     </SECTION>

@@ -2,6 +2,25 @@
 
 # Запуск
 
+Установка виртуальной среды и зависимостей
+```sh
+python3.10 -m venv .venv
+```
+```sh
+source .venv/bin/activate
+```
+
+```sh
+pip install -r requirements.txt
+```
+
+Необходимо создать папку secrets в .venv
+```sh
+mkdir .venv/secrets
+```
+Поместить файл SECRET_KEY в .venv/secrets
+
+И запустить приложение
 ```sh
 python3.10 manage.py runserver
 ```
